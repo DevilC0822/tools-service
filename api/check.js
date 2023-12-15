@@ -6,8 +6,8 @@ const app = express();
 // aliCloudPan
 app.get('/aliCloudPan', async (req, res) => {
   try {
-    const { token = '' } = req.query;
-    const result = await checkUtils.aliCloudPanCheck(token);
+    const { token = '', sendKey } = req.query;
+    const result = await checkUtils.aliCloudPanCheck(token, sendKey);
     res.send({
       code: 200,
       msg: '签到成功',
@@ -27,7 +27,6 @@ app.get('/aliCloudPan', async (req, res) => {
 app.get('/mihoyo', async (req, res) => {
   try {
     const { cookie = '', sendKey = '' } = req.query;
-    console.log(cookie, sendKey);
     const result = await checkUtils.mihoyoCheck(cookie, sendKey);
     res.send({
       code: 200,

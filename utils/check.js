@@ -178,6 +178,17 @@ const mihoyoCheck = async (cookie = '', sendKey = '') => {
         method: 'GET',
         headers: getMihoyoHeader(cookie, DEVICE_ID, DEVICE_NAME),
       }).then(res => res.json());
+      // 发送消息post形式
+      await fetch(`https://sc.ftqq.com/${sendKey}.send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: '米游社签到成功', desp: JSON.stringify({
+          signRes,
+          viewPostRes,
+          likePostRes,
+          sharePostRes,
+        }, null, 2) }),
+      }).then(res => res.json());
       resolve({
         signRes,
         viewPostRes,
