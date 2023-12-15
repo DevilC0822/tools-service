@@ -49,12 +49,15 @@ const getRandomNum = (min, max, num) => {
 };
 
 const aliCloudPanCheck = async (token = '', sendKey = '') => {
-  if (!token) {
-    return Promise.reject('未获取到阿里云盘 token');
-  }
   let isNeedSendMsg = false;
   if (sendKey) {
     isNeedSendMsg = true;
+  }
+  if (!token) {
+    if(isNeedSendMsg) {
+      await fetch(`https://sc.ftqq.com/${sendKey}.send?text=阿里云盘签到失败&desp=未获取到阿里云盘 token`);
+    }
+    return Promise.reject('未获取到阿里云盘 token');
   }
   fetch = (await import('node-fetch')).default;
   const updateAccesssTokenURL = 'https://auth.aliyundrive.com/v2/account/token';
@@ -124,12 +127,15 @@ const aliCloudPanCheck = async (token = '', sendKey = '') => {
 };
 
 const mihoyoCheck = async (cookie = '', sendKey = '') => {
-  if (!cookie) {
-    return Promise.reject('为获取到米游社 cookie');
-  }
   let isNeedSendMsg = false;
   if (sendKey) {
     isNeedSendMsg = true;
+  }
+  if (!cookie) {
+    if(isNeedSendMsg) {
+      await fetch(`https://sc.ftqq.com/${sendKey}.send?text=米游社签到失败&desp=未获取到米游社 cookie`);
+    }
+    return Promise.reject('未获取到米游社 cookie');
   }
   fetch = (await import('node-fetch')).default;
   return new Promise(async (resolve, reject) => {
